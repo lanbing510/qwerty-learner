@@ -1,4 +1,6 @@
 import { CHAPTER_LENGTH } from '@/constants'
+import { isCustomDictId } from '@/resources/dictionary'
+import { getCustomDictById } from '@/resources/customDictionary'
 import { currentChapterAtom, currentDictInfoAtom, reviewModeInfoAtom } from '@/store'
 import type { Word, WordWithIndex } from '@/typings/index'
 import { wordListFetcher } from '@/utils/wordListFetcher'
@@ -26,11 +28,35 @@ export function useWordList(): UseWordListResult {
   }
 
   const isFirstChapter = !isReviewMode && currentDictInfo.id === 'cet4' && currentChapter === 0
-  const { data: wordList, error, isLoading } = useSWR(currentDictInfo.url, wordListFetcher)
+  
+  // 检查是否是自定义词典
+  const isCustomDict = isCustomDictId(currentDictInfo.id)
+  
+  // 对于自定义词典，从 localStorage 加载数据
+  const customDictData = useMemo(() => {
+    if (isCustomDict) {
+      return getCustomDictById(currentDictInfo.id)
+    }
+    return null
+  }, [isCustomDict, currentDictInfo.id])
+
+  // 对于内置词典，从 URL 加载
+  const { data: wordList, error, isLoading } = useSWR(
+    isCustomDict ? null : currentDictInfo.url, 
+    isCustomDict ? null : wordListFetcher
+  )
 
   const words: WordWithIndex[] = useMemo(() => {
     let newWords: Word[]
-    if (isFirstChapter) {
+    
+    if (isCustomDict && customDictData) {
+      // 自定义词典：从 chapters 中获取当前章节的单词
+      if (currentChapter < customDictData.chapters.length) {
+        newWords = customDictData.chapters[currentChapter].words
+      } else {
+        newWords = []
+      }
+    } else if (isFirstChapter) {
       newWords = firstChapter
     } else if (isReviewMode) {
       newWords = reviewRecord?.words ?? []
@@ -56,9 +82,12 @@ export function useWordList(): UseWordListResult {
         trans,
       }
     })
-  }, [isFirstChapter, isReviewMode, wordList, reviewRecord?.words, currentChapter])
+  }, [isCustomDict, customDictData, isFirstChapter, isReviewMode, wordList, reviewRecord?.words, currentChapter])
 
-  return { words, isLoading, error }
+  // 自定义词典不需要 loading 状态
+  const finalIsLoading = isCustomDict ? false : isLoading
+
+  return { words, isLoading: finalIsLoading, error }
 }
 
 const firstChapter = [

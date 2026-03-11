@@ -17,6 +17,8 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 const AnalysisPage = lazy(() => import('./pages/Analysis'))
 const GalleryPage = lazy(() => import('./pages/Gallery-N'))
+const CustomDictPage = lazy(() => import('./pages/CustomDict'))
+const CustomDictEditPage = lazy(() => import('./pages/CustomDict/EditDict'))
 
 if (process.env.NODE_ENV === 'production') {
   // for prod
@@ -58,6 +60,8 @@ function Root() {
               <>
                 <Route index element={<TypingPage />} />
                 <Route path="/gallery" element={<GalleryPage />} />
+                <Route path="/custom-dict" element={<CustomDictPage />} />
+                <Route path="/custom-dict/edit/:id" element={<CustomDictEditPage />} />
                 <Route path="/analysis" element={<AnalysisPage />} />
                 <Route path="/error-book" element={<ErrorBook />} />
                 <Route path="/friend-links" element={<FriendLinks />} />

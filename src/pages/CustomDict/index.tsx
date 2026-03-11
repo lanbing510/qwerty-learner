@@ -1,10 +1,10 @@
 import Layout from '@/components/Layout'
 import {
-  type CustomDictChapter,
-  type CustomDictionary,
-  addCustomDict,
   generateChapterId,
   generateCustomDictId,
+  addCustomDict,
+  type CustomDictionary,
+  type CustomDictChapter,
 } from '@/resources/customDictionary'
 import { batchFindWordInfo } from '@/utils/customDictSearch'
 import { useCallback, useState } from 'react'

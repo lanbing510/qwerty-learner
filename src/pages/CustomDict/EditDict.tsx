@@ -1,15 +1,15 @@
 import Layout from '@/components/Layout'
 import {
-  type CustomDictChapter,
-  type CustomDictionary,
-  type Word,
-  deleteCustomDict,
   generateChapterId,
   getCustomDictById,
   updateCustomDict,
+  deleteCustomDict,
+  type CustomDictionary,
+  type CustomDictChapter,
+  type Word,
 } from '@/resources/customDictionary'
 import { batchFindWordInfo } from '@/utils/customDictSearch'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import IconArrowLeft from '~icons/tabler/arrow-left'
 import IconCheck from '~icons/tabler/check'

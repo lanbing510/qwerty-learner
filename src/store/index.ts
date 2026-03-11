@@ -1,7 +1,8 @@
 import atomForConfig from './atomForConfig'
 import { reviewInfoAtom } from './reviewInfoAtom'
 import { DISMISS_START_CARD_DATE_KEY, defaultFontSizeConfig } from '@/constants'
-import { idDictionaryMap } from '@/resources/dictionary'
+import { getAllDictionaryMap, isCustomDictId } from '@/resources/dictionary'
+import { getCustomDictById } from '@/resources/customDictionary'
 import { correctSoundResources, keySoundResources, wrongSoundResources } from '@/resources/soundResource'
 import type {
   Dictionary,
@@ -19,10 +20,31 @@ import { atomWithStorage } from 'jotai/utils'
 export const currentDictIdAtom = atomWithStorage('currentDict', 'cet4')
 export const currentDictInfoAtom = atom<Dictionary>((get) => {
   const id = get(currentDictIdAtom)
-  let dict = idDictionaryMap[id]
+  
+  // 首先检查是否是自定义词典
+  if (isCustomDictId(id)) {
+    const customDict = getCustomDictById(id)
+    if (customDict) {
+      return {
+        id: customDict.id,
+        name: customDict.name,
+        description: customDict.description,
+        category: '自定义词典',
+        tags: ['自定义'],
+        url: '', // 自定义词典不使用 URL
+        length: customDict.chapters.reduce((sum, c) => sum + c.words.length, 0),
+        language: customDict.language,
+        languageCategory: customDict.languageCategory,
+        chapterCount: customDict.chapters.length,
+      }
+    }
+  }
+  
+  // 使用内置词典
+  let dict = getAllDictionaryMap()[id]
   // 如果 dict 不存在，则返回 cet4. Typing 中会检查 DictId 是否存在，如果不存在则会重置为 cet4
   if (!dict) {
-    dict = idDictionaryMap.cet4
+    dict = getAllDictionaryMap().cet4
   }
   return dict
 })

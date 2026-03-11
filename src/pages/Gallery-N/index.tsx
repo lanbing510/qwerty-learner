@@ -2,7 +2,7 @@ import DictionaryGroup from './CategoryDicts'
 import DictRequest from './DictRequest'
 import { LanguageTabSwitcher } from './LanguageTabSwitcher'
 import Layout from '@/components/Layout'
-import { dictionaries } from '@/resources/dictionary'
+import { dictionaries, getAllDictionaries } from '@/resources/dictionary'
 import { currentDictInfoAtom } from '@/store'
 import type { Dictionary, LanguageCategoryType } from '@/typings'
 import groupBy, { groupByDictTags } from '@/utils/groupBy'
@@ -15,6 +15,9 @@ import type { Updater } from 'use-immer'
 import { useImmer } from 'use-immer'
 import IconInfo from '~icons/ic/outline-info'
 import IconX from '~icons/tabler/x'
+import IconPlus from '~icons/tabler/plus'
+import IconEdit from '~icons/tabler/edit'
+import { Link } from 'react-router-dom'
 
 export type GalleryState = {
   currentLanguageTab: LanguageCategoryType
@@ -34,15 +37,20 @@ export default function GalleryPage() {
   const navigate = useNavigate()
   const currentDictInfo = useAtomValue(currentDictInfoAtom)
 
-  const { groupedByCategoryAndTag } = useMemo(() => {
-    const currentLanguageCategoryDicts = dictionaries.filter((dict) => dict.languageCategory === galleryState.currentLanguageTab)
+  const { groupedByCategoryAndTag, customDicts } = useMemo(() => {
+    const allDicts = getAllDictionaries()
+    const currentLanguageCategoryDicts = allDicts.filter((dict) => dict.languageCategory === galleryState.currentLanguageTab)
     const groupedByCategory = Object.entries(groupBy(currentLanguageCategoryDicts, (dict) => dict.category))
     const groupedByCategoryAndTag = groupedByCategory.map(
       ([category, dicts]) => [category, groupByDictTags(dicts)] as [string, Record<string, Dictionary[]>],
     )
 
+    // 分离自定义词典
+    const custom = allDicts.filter((dict) => dict.category === '自定义词典' && dict.languageCategory === galleryState.currentLanguageTab)
+
     return {
       groupedByCategoryAndTag,
+      customDicts: custom,
     }
   }, [galleryState.currentLanguageTab])
 
@@ -69,7 +77,16 @@ export default function GalleryPage() {
             <div className="flex h-full flex-col overflow-y-auto">
               <div className="flex h-20 w-full items-center justify-between pb-6 pr-20">
                 <LanguageTabSwitcher />
-                <DictRequest />
+                <div className="flex items-center gap-3">
+                  <Link
+                    to="/custom-dict"
+                    className="flex items-center gap-1 rounded-md bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600"
+                  >
+                    <IconPlus className="h-4 w-4" />
+                    创建自定义词典
+                  </Link>
+                  <DictRequest />
+                </div>
               </div>
               <ScrollArea.Root className="flex-1 overflow-y-auto">
                 <ScrollArea.Viewport className="h-full w-full ">
@@ -77,6 +94,42 @@ export default function GalleryPage() {
                     {groupedByCategoryAndTag.map(([category, groupeByTag]) => (
                       <DictionaryGroup key={category} groupedDictsByTag={groupeByTag} />
                     ))}
+                    {/* 自定义词典区域 */}
+                    {customDicts.length > 0 && (
+                      <div className="mt-8 w-full">
+                        <h2 className="mb-4 text-lg font-semibold text-gray-700">我的自定义词典</h2>
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                          {customDicts.map((dict) => (
+                            <div
+                              key={dict.id}
+                              className="group relative flex h-32 cursor-pointer flex-col justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+                            >
+                              <div
+                                onClick={() => {
+                                  navigate(`/?dict=${dict.id}`)
+                                }}
+                              >
+                                <h3 className="font-medium text-gray-800 truncate">{dict.name}</h3>
+                                <p className="mt-1 text-xs text-gray-500">{dict.description}</p>
+                              </div>
+                              <div className="flex items-center justify-between text-xs text-gray-400">
+                                <span>{dict.length} 单词</span>
+                                <span>{dict.chapterCount} 章节</span>
+                              </div>
+                              {/* 编辑按钮 */}
+                              <Link
+                                to={`/custom-dict/edit/${dict.id}`}
+                                onClick={(e) => e.stopPropagation()}
+                                className="absolute right-2 top-2 hidden rounded bg-blue-500 p-1.5 text-white group-hover:block"
+                                title="编辑词典"
+                              >
+                                <IconEdit className="h-4 w-4" />
+                              </Link>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <div className="flex items-center justify-center pb-10 pt-[20rem] text-gray-500">
                     <IconInfo className="mr-1 h-5 w-5" />

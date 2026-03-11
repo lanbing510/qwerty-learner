@@ -4198,3 +4198,49 @@ export const dictionaries: Dictionary[] = dictionaryResources.map((resource) => 
  * An object-map from dictionary IDs to dictionary themselves.
  */
 export const idDictionaryMap: Record<string, Dictionary> = Object.fromEntries(dictionaries.map((dict) => [dict.id, dict]))
+
+// 导入自定义词典
+import { loadCustomDicts, type CustomDictionary as CustomDictType } from './customDictionary'
+
+/**
+ * 将自定义词典转换为内置词典格式
+ */
+function convertCustomDictToBuiltIn(customDict: CustomDictType): Dictionary {
+  return {
+    id: customDict.id,
+    name: customDict.name,
+    description: customDict.description,
+    category: '自定义词典',
+    tags: ['自定义'],
+    url: '', // 自定义词典不使用 URL
+    length: customDict.chapters.reduce((sum, c) => sum + c.words.length, 0),
+    language: customDict.language,
+    languageCategory: customDict.languageCategory,
+    chapterCount: customDict.chapters.length,
+  }
+}
+
+/**
+ * 获取所有词典（包括内置词典和自定义词典）
+ */
+export function getAllDictionaries(): Dictionary[] {
+  const customDicts = loadCustomDicts()
+  const customDictAsBuiltIn = customDicts.map(convertCustomDictToBuiltIn)
+  
+  return [...dictionaries, ...customDictAsBuiltIn]
+}
+
+/**
+ * 获取所有词典的映射（包括内置词典和自定义词典）
+ */
+export function getAllDictionaryMap(): Record<string, Dictionary> {
+  const allDicts = getAllDictionaries()
+  return Object.fromEntries(allDicts.map((dict) => [dict.id, dict]))
+}
+
+/**
+ * 检查是否是自定义词典 ID
+ */
+export function isCustomDictId(dictId: string): boolean {
+  return dictId.startsWith('custom_')
+}
