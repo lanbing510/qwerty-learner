@@ -30,6 +30,20 @@
 <img  src="docs/Screenshot.png"/>
 </div>
 
+
+## NEW FEATURE
+
+[自定义词典功能](./docs/CUSTOM_DICT.md)
+
+<div align=center>
+<img  src="docs/custom1.png"/>
+</div>
+
+<div align=center>
+<img  src="docs/custom2.png"/>
+</div>
+
+
 ## 📸 在线访问
 
 **首选部署**: <https://qwerty.kaiyi.cool/>
