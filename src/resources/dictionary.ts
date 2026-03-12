@@ -4200,7 +4200,7 @@ export const dictionaries: Dictionary[] = dictionaryResources.map((resource) => 
 export const idDictionaryMap: Record<string, Dictionary> = Object.fromEntries(dictionaries.map((dict) => [dict.id, dict]))
 
 // 导入自定义词典
-import { loadCustomDicts, type CustomDictionary as CustomDictType } from './customDictionary'
+import { loadCustomDictsSync, type CustomDictionary as CustomDictType } from './customDictionary'
 
 /**
  * 将自定义词典转换为内置词典格式
@@ -4224,7 +4224,7 @@ function convertCustomDictToBuiltIn(customDict: CustomDictType): Dictionary {
  * 获取所有词典（包括内置词典和自定义词典）
  */
 export function getAllDictionaries(): Dictionary[] {
-  const customDicts = loadCustomDicts()
+  const customDicts = loadCustomDictsSync()
   const customDictAsBuiltIn = customDicts.map(convertCustomDictToBuiltIn)
   
   return [...dictionaries, ...customDictAsBuiltIn]

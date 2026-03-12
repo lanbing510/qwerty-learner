@@ -1,6 +1,6 @@
 import { CHAPTER_LENGTH } from '@/constants'
 import { isCustomDictId } from '@/resources/dictionary'
-import { getCustomDictById } from '@/resources/customDictionary'
+import { getCustomDictByIdSync } from '@/resources/customDictionary'
 import { currentChapterAtom, currentDictInfoAtom, reviewModeInfoAtom } from '@/store'
 import type { Word, WordWithIndex } from '@/typings/index'
 import { wordListFetcher } from '@/utils/wordListFetcher'
@@ -32,10 +32,10 @@ export function useWordList(): UseWordListResult {
   // 检查是否是自定义词典
   const isCustomDict = isCustomDictId(currentDictInfo.id)
   
-  // 对于自定义词典，从 localStorage 加载数据
+  // 对于自定义词典，从缓存加载数据（同步）
   const customDictData = useMemo(() => {
     if (isCustomDict) {
-      return getCustomDictById(currentDictInfo.id)
+      return getCustomDictByIdSync(currentDictInfo.id)
     }
     return null
   }, [isCustomDict, currentDictInfo.id])

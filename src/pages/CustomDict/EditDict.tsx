@@ -6,8 +6,8 @@ import {
   deleteCustomDict,
   type CustomDictionary,
   type CustomDictChapter,
-  type Word,
 } from '@/resources/customDictionary'
+import type { Word } from '@/typings'
 import { batchFindWordInfo } from '@/utils/customDictSearch'
 import { useCallback, useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -50,16 +50,19 @@ export default function EditDictPage() {
   // 加载词典数据
   useEffect(() => {
     if (id) {
-      const loadedDict = getCustomDictById(id)
-      if (loadedDict) {
-        setDict(loadedDict)
-        setDictName(loadedDict.name)
-        setDictDescription(loadedDict.description)
-      } else {
-        setError('词典不存在')
-      }
+      getCustomDictById(id).then((loadedDict) => {
+        if (loadedDict) {
+          setDict(loadedDict)
+          setDictName(loadedDict.name)
+          setDictDescription(loadedDict.description)
+        } else {
+          setError('词典不存在')
+        }
+        setIsLoading(false)
+      })
+    } else {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }, [id])
 
   // 返回
@@ -68,7 +71,7 @@ export default function EditDictPage() {
   }, [navigate])
 
   // 保存修改
-  const handleSave = useCallback(() => {
+  const handleSave = useCallback(async () => {
     if (!dict) return
 
     setIsSaving(true)
@@ -80,7 +83,7 @@ export default function EditDictPage() {
       description: dictDescription || dict.description,
     }
 
-    updateCustomDict(updatedDict)
+    await updateCustomDict(updatedDict)
     setDict(updatedDict)
     setSuccess('保存成功！')
     setIsSaving(false)
@@ -89,11 +92,11 @@ export default function EditDictPage() {
   }, [dict, dictName, dictDescription])
 
   // 删除词典
-  const handleDelete = useCallback(() => {
+  const handleDelete = useCallback(async () => {
     if (!dict) return
 
     if (confirm('确定要删除这个词典吗？此操作不可恢复。')) {
-      deleteCustomDict(dict.id)
+      await deleteCustomDict(dict.id)
       navigate('/gallery')
     }
   }, [dict, navigate])

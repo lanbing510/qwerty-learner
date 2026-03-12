@@ -3,12 +3,19 @@ import DictRequest from './DictRequest'
 import { LanguageTabSwitcher } from './LanguageTabSwitcher'
 import Layout from '@/components/Layout'
 import { dictionaries, getAllDictionaries } from '@/resources/dictionary'
+import {
+  exportCustomDictsToFile,
+  getCustomDictById,
+  importCustomDictsFromFile,
+  loadCustomDicts,
+  saveCustomDicts,
+} from '@/resources/customDictionary'
 import { currentDictInfoAtom } from '@/store'
 import type { Dictionary, LanguageCategoryType } from '@/typings'
 import groupBy, { groupByDictTags } from '@/utils/groupBy'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import { useAtomValue } from 'jotai'
-import { createContext, useCallback, useEffect, useMemo } from 'react'
+import { createContext, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { useNavigate } from 'react-router-dom'
 import type { Updater } from 'use-immer'
@@ -17,6 +24,8 @@ import IconInfo from '~icons/ic/outline-info'
 import IconX from '~icons/tabler/x'
 import IconPlus from '~icons/tabler/plus'
 import IconEdit from '~icons/tabler/edit'
+import IconDownload from '~icons/tabler/download'
+import IconUpload from '~icons/tabler/upload'
 import { Link } from 'react-router-dom'
 
 export type GalleryState = {
@@ -36,6 +45,55 @@ export default function GalleryPage() {
   const [galleryState, setGalleryState] = useImmer<GalleryState>(initialGalleryState)
   const navigate = useNavigate()
   const currentDictInfo = useAtomValue(currentDictInfoAtom)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [importStatus, setImportStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+
+  // 导出自定义词典
+  const handleExport = useCallback(async () => {
+    const dicts = await loadCustomDicts()
+    if (dicts.length > 0) {
+      exportCustomDictsToFile(dicts)
+    } else {
+      alert('没有可导出的自定义词典')
+    }
+  }, [])
+
+  // 导入自定义词典
+  const handleImport = useCallback(() => {
+    fileInputRef.current?.click()
+  }, [])
+
+  // 处理文件选择
+  const handleFileChange = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0]
+      if (!file) return
+
+      try {
+        const mergedDicts = await importCustomDictsFromFile(file)
+        setImportStatus({
+          type: 'success',
+          message: `成功导入 ${mergedDicts.length} 个词典`,
+        })
+        // 刷新页面以显示新导入的词典
+        window.location.reload()
+      } catch (error) {
+        setImportStatus({
+          type: 'error',
+          message: '导入失败：文件格式不正确',
+        })
+      }
+
+      // 清空文件输入
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+
+      // 3秒后清除状态消息
+      setTimeout(() => setImportStatus(null), 3000)
+    },
+    [],
+  )
 
   const { groupedByCategoryAndTag, customDicts } = useMemo(() => {
     const allDicts = getAllDictionaries()
@@ -95,11 +153,51 @@ export default function GalleryPage() {
                       <DictionaryGroup key={category} groupedDictsByTag={groupeByTag} />
                     ))}
                     {/* 自定义词典区域 */}
-                    {customDicts.length > 0 && (
+                    {(customDicts.length > 0 || true) && (
                       <div className="mt-8 w-full">
-                        <h2 className="mb-4 text-lg font-semibold text-gray-700">我的自定义词典</h2>
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                          {customDicts.map((dict) => (
+                        <div className="mb-4 flex items-center justify-between">
+                          <h2 className="text-lg font-semibold text-gray-700">我的自定义词典</h2>
+                          <div className="flex items-center gap-2">
+                            {/* 导入/导出按钮 */}
+                            <button
+                              onClick={handleImport}
+                              className="flex items-center gap-1 rounded-md bg-gray-100 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-200"
+                              title="导入词典"
+                            >
+                              <IconUpload className="h-4 w-4" />
+                              导入
+                            </button>
+                            <button
+                              onClick={handleExport}
+                              className="flex items-center gap-1 rounded-md bg-gray-100 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-200"
+                              title="导出词典"
+                            >
+                              <IconDownload className="h-4 w-4" />
+                              导出
+                            </button>
+                          </div>
+                        </div>
+                        {/* 导入状态消息 */}
+                        {importStatus && (
+                          <div
+                            className={`mb-4 rounded-md p-3 text-sm ${
+                              importStatus.type === 'success' ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'
+                            }`}
+                          >
+                            {importStatus.message}
+                          </div>
+                        )}
+                        {/* 隐藏的文件输入 */}
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          accept=".xlsx,.xls"
+                          onChange={handleFileChange}
+                          className="hidden"
+                        />
+                        {customDicts.length > 0 ? (
+                          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                            {customDicts.map((dict) => (
                             <div
                               key={dict.id}
                               className="group relative flex h-32 cursor-pointer flex-col justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
@@ -128,6 +226,9 @@ export default function GalleryPage() {
                             </div>
                           ))}
                         </div>
+                        ) : (
+                          <p className="text-sm text-gray-500">暂无自定义词典，点击上方"创建自定义词典"开始创建</p>
+                        )}
                       </div>
                     )}
                   </div>

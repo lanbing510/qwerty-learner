@@ -2,7 +2,7 @@ import atomForConfig from './atomForConfig'
 import { reviewInfoAtom } from './reviewInfoAtom'
 import { DISMISS_START_CARD_DATE_KEY, defaultFontSizeConfig } from '@/constants'
 import { getAllDictionaryMap, isCustomDictId } from '@/resources/dictionary'
-import { getCustomDictById } from '@/resources/customDictionary'
+import { getCustomDictByIdSync } from '@/resources/customDictionary'
 import { correctSoundResources, keySoundResources, wrongSoundResources } from '@/resources/soundResource'
 import type {
   Dictionary,
@@ -23,7 +23,7 @@ export const currentDictInfoAtom = atom<Dictionary>((get) => {
   
   // 首先检查是否是自定义词典
   if (isCustomDictId(id)) {
-    const customDict = getCustomDictById(id)
+    const customDict = getCustomDictByIdSync(id)
     if (customDict) {
       return {
         id: customDict.id,

@@ -91,7 +91,7 @@ export default function CustomDictPage() {
   }, [wordsInput, dictName])
 
   // 保存词典
-  const handleSaveDict = useCallback(() => {
+  const handleSaveDict = useCallback(async () => {
     if (chapters.length === 0) {
       setError('请先解析单词')
       return
@@ -108,7 +108,7 @@ export default function CustomDictPage() {
       updatedAt: Date.now(),
     }
 
-    addCustomDict(newDict)
+    await addCustomDict(newDict)
     navigate('/')
   }, [dictName, dictDescription, chapters, navigate])
 
