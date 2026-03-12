@@ -42,11 +42,12 @@ export default function CustomDictPage() {
     setProgress({ current: 0, total: 0 })
 
     try {
-      // 解析单词列表
+      // 解析单词列表，只按换行和逗号分隔，短语作为一个整体
+      // 保留原始大小写，用于显示和保存
       const words = wordsInput
-        .split(/[\n,，\s]+/)
-        .map((w) => w.trim().toLowerCase())
-        .filter((w) => w.length > 0 && /^[a-zA-Z]+$/.test(w))
+        .split(/[\n,，]/)
+        .map((w) => w.trim())
+        .filter((w) => w.length > 0 && /^[a-zA-Z\s]+$/.test(w))
 
       if (words.length === 0) {
         setError('未找到有效的单词，请确保输入的是英文单词')
@@ -66,9 +67,10 @@ export default function CustomDictPage() {
         id: generateChapterId(),
         name: '章节 1',
         words: words.map((wordName) => {
-          const wordInfo = wordInfoMap.get(wordName)
+          // 使用小写key获取搜索结果，但保留原始大小写用于显示
+          const wordInfo = wordInfoMap.get(wordName.toLowerCase())
           if (wordInfo) {
-            return { ...wordInfo }
+            return { ...wordInfo, name: wordName }
           }
           // 如果找不到词典信息，创建基本结构
           return {

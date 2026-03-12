@@ -1,4 +1,5 @@
 import type { Word } from '@/typings'
+import { API_BASE_URL, useServerApi, customDictApi } from '@/utils/customDictApi'
 
 /**
  * 自定义词典的章节
@@ -39,11 +40,36 @@ function isTauri(): boolean {
   return typeof window !== 'undefined' && '__TAURI__' in window
 }
 
+// 判断是否使用后端服务
+function useServer(): boolean {
+  return useServerApi()
+}
+
 /**
- * 初始化缓存
+ * 初始化缓存 - 同步版本
+ * 注意：使用 localStorage 作为初始值，实际服务器数据会在后台加载
  */
 export function initCustomDictsCache(): void {
   customDictsCache = loadFromLocalStorage()
+}
+
+/**
+ * 初始化缓存 - 异步版本
+ * 在应用启动时调用此函数来从服务器加载最新数据
+ */
+export async function initCustomDictsCacheAsync(): Promise<void> {
+  if (useServer()) {
+    // 从服务器加载最新数据
+    const serverDicts = await loadFromServer()
+    if (serverDicts.length > 0) {
+      customDictsCache = serverDicts
+      // 同步到本地存储
+      saveToLocalStorage(serverDicts)
+    } else if (customDictsCache && customDictsCache.length > 0) {
+      // 服务器为空但本地有数据，上传到服务器
+      await saveToServer(customDictsCache)
+    }
+  }
 }
 
 /**
@@ -114,13 +140,63 @@ async function saveToTauri(dicts: CustomDictionary[]): Promise<void> {
 }
 
 /**
- * 从本地文件加载自定义词典（支持 Tauri 和 Web）
- * Tauri 端优先使用文件存储，回退到 localStorage
- * Web 端使用 localStorage
+ * 从服务器加载自定义词典
+ */
+async function loadFromServer(): Promise<CustomDictionary[]> {
+  try {
+    const dicts = await customDictApi.getDicts()
+    return dicts || []
+  } catch (error) {
+    console.error('从服务器加载词典失败:', error)
+    return []
+  }
+}
+
+/**
+ * 保存自定义词典到服务器
+ */
+async function saveToServer(dicts: CustomDictionary[]): Promise<void> {
+  try {
+    await customDictApi.saveDicts(dicts)
+  } catch (error) {
+    console.error('Failed to save custom dictionaries to server:', error)
+    throw error
+  }
+}
+
+/**
+ * 从本地文件加载自定义词典（支持 Tauri、Web 和服务器）
+ * 优先级：服务器 > Tauri > localStorage
  */
 export async function loadCustomDicts(): Promise<CustomDictionary[]> {
   let dicts: CustomDictionary[]
 
+  // 优先使用服务器
+  if (useServer()) {
+    dicts = await loadFromServer()
+    if (dicts.length > 0) {
+      customDictsCache = dicts
+      // 同步到本地存储作为备份
+      saveToLocalStorage(dicts)
+      return dicts
+    }
+    // 服务器为空，尝试从本地加载
+    dicts = loadFromLocalStorage()
+    if (dicts.length > 0) {
+      // 尝试上传到服务器，但不影响加载流程
+      try {
+        await saveToServer(dicts)
+      } catch (error) {
+        console.warn('上传到服务器失败，但继续使用本地数据:', error)
+      }
+      customDictsCache = dicts
+      return dicts
+    }
+    customDictsCache = dicts
+    return dicts
+  }
+
+  // Tauri 端
   if (isTauri()) {
     dicts = await loadFromTauri()
     if (dicts.length > 0) {
@@ -137,6 +213,8 @@ export async function loadCustomDicts(): Promise<CustomDictionary[]> {
     customDictsCache = dicts
     return dicts
   }
+
+  // Web 端使用 localStorage
   dicts = loadFromLocalStorage()
   customDictsCache = dicts
   return dicts
@@ -148,13 +226,25 @@ export async function loadCustomDicts(): Promise<CustomDictionary[]> {
  */
 export async function saveCustomDicts(dicts: CustomDictionary[]): Promise<void> {
   customDictsCache = dicts
+
+  // 优先使用服务器
+  if (useServer()) {
+    await saveToServer(dicts)
+    // 同时保存到 localStorage 作为备份
+    saveToLocalStorage(dicts)
+    return
+  }
+
+  // Tauri 端
   if (isTauri()) {
     await saveToTauri(dicts)
     // 同时保存到 localStorage 作为备份
     saveToLocalStorage(dicts)
-  } else {
-    saveToLocalStorage(dicts)
+    return
   }
+
+  // Web 端使用 localStorage
+  saveToLocalStorage(dicts)
 }
 
 /**

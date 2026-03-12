@@ -5,6 +5,7 @@ import { FriendLinks } from './pages/FriendLinks'
 import MobilePage from './pages/Mobile'
 import TypingPage from './pages/Typing'
 import { isOpenDarkModeAtom } from '@/store'
+import { initCustomDictsCacheAsync } from '@/resources/customDictionary'
 import { Analytics } from '@vercel/analytics/react'
 import 'animate.css'
 import { useAtomValue } from 'jotai'
@@ -33,6 +34,11 @@ function Root() {
   useEffect(() => {
     darkMode ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')
   }, [darkMode])
+
+  // 应用启动时从服务器加载自定义词典
+  useEffect(() => {
+    initCustomDictsCacheAsync()
+  }, [])
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600)
 

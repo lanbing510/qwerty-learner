@@ -1,0 +1,866 @@
+[
+  {
+    "id": "custom_1773337093182_5ifybj3",
+    "name": "ThinkStarter",
+    "description": "",
+    "language": "en",
+    "languageCategory": "en",
+    "chapters": [
+      {
+        "id": "chapter_1773337937243_w96vp43",
+        "name": "章节 1",
+        "words": [
+          {
+            "name": "airport",
+            "trans": [
+              "adv.机场"
+            ]
+          },
+          {
+            "name": "hamburger",
+            "trans": [
+              "汉堡包"
+            ],
+            "usphone": "ˈhæmbɝɡɚ",
+            "ukphone": "ˈhæmbɜːɡə"
+          },
+          {
+            "name": "hotel",
+            "trans": [
+              "宾馆"
+            ],
+            "usphone": "hoʊˈtɛl",
+            "ukphone": "hoʊˈtɛl"
+          },
+          {
+            "name": "phone",
+            "trans": [
+              "adv.电话；电话机"
+            ]
+          },
+          {
+            "name": "restaurant",
+            "trans": [
+              "餐馆"
+            ],
+            "usphone": "ˈrɛstərənt",
+            "ukphone": "ˈrɛstərɒnt"
+          },
+          {
+            "name": "sandwich",
+            "trans": [
+              "三明治"
+            ],
+            "usphone": "'sænwɪtʃ",
+            "ukphone": "'sæn(d)wɪdʒ; -wɪtʃ"
+          },
+          {
+            "name": "sushi",
+            "trans": [
+              "寿司"
+            ],
+            "usphone": "'sʊʃi",
+            "ukphone": "'suːʃɪ"
+          },
+          {
+            "name": "taxi",
+            "trans": [
+              "n. 出租汽车",
+              "vt. 使滑行；用出租车送",
+              "vi. 乘出租车；滑行"
+            ],
+            "usphone": "[ˈtæksi]",
+            "ukphone": "[ˈtæksi]"
+          },
+          {
+            "name": "television",
+            "trans": [
+              "adv.电视机"
+            ]
+          },
+          {
+            "name": "tablet",
+            "usphone": "'tæblət",
+            "ukphone": "'tæblɪt",
+            "trans": [
+              "n. 药片"
+            ]
+          },
+          {
+            "name": "yellow",
+            "trans": [
+              "黄色；黄色的"
+            ],
+            "usphone": "ˈjɛlo",
+            "ukphone": "'jeləʊ"
+          },
+          {
+            "name": "green",
+            "trans": [
+              "绿色；绿色的"
+            ],
+            "usphone": "ɡrin",
+            "ukphone": "griːn"
+          },
+          {
+            "name": "orange",
+            "trans": [
+              "橙色；橙色的"
+            ],
+            "usphone": "'ɔrɪndʒ",
+            "ukphone": "'ɒrɪn(d)ʒ"
+          },
+          {
+            "name": "purple",
+            "usphone": "ˈpɜːp(ə)l",
+            "ukphone": "'pɜːp(ə)l",
+            "trans": [
+              "n. / a. 紫色"
+            ]
+          },
+          {
+            "name": "black",
+            "trans": [
+              "黑色；黑色的"
+            ],
+            "usphone": "blæk",
+            "ukphone": "blæk"
+          },
+          {
+            "name": "white",
+            "trans": [
+              "白色；白色的"
+            ],
+            "usphone": "hwaɪt",
+            "ukphone": "waɪt"
+          },
+          {
+            "name": "brown",
+            "trans": [
+              "棕色；棕色的"
+            ],
+            "usphone": "braʊn",
+            "ukphone": "braʊn"
+          },
+          {
+            "name": "grey",
+            "trans": [
+              "n. 灰色",
+              "adj. 灰色的；灰白的",
+              "vt. 使变成灰色；使变老",
+              "vi. 变成灰色；老化"
+            ],
+            "usphone": "ɡreɪ",
+            "ukphone": "ɡreɪ"
+          },
+          {
+            "name": "famous",
+            "trans": [
+              "adv.著名的"
+            ]
+          },
+          {
+            "name": "actor",
+            "trans": [
+              "adv.演员"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "chapter_1773337937244_up8oa6n",
+        "name": "章节 2",
+        "words": [
+          {
+            "name": "China",
+            "trans": [
+              "中国"
+            ],
+            "usphone": "",
+            "ukphone": "ˈtʃaɪnə"
+          },
+          {
+            "name": "the",
+            "trans": [
+              "adv.这(那)个，这(那)些"
+            ]
+          },
+          {
+            "name": "UK",
+            "trans": [
+              "英国"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Mexico",
+            "usphone": "ˈmeksɪkəʊ",
+            "ukphone": "'meksɪkəʊ",
+            "trans": [
+              "* n. 墨西哥"
+            ]
+          },
+          {
+            "name": "USA",
+            "trans": [
+              "美国"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Spain",
+            "trans": [
+              "西班牙"
+            ],
+            "usphone": "spen",
+            "ukphone": "spein"
+          },
+          {
+            "name": "Russia",
+            "trans": [
+              "n. 俄罗斯"
+            ],
+            "usphone": "ˈrʌʃə",
+            "ukphone": "ˈrʌʃə"
+          },
+          {
+            "name": "Brazil",
+            "usphone": "brə'zil",
+            "ukphone": "brə'zil",
+            "trans": [
+              "n.巴西"
+            ]
+          },
+          {
+            "name": "Portugal",
+            "trans": [
+              "葡萄牙"
+            ],
+            "usphone": "",
+            "ukphone": "",
+            "notation": "",
+            "definition": "",
+            "sentence": ""
+          },
+          {
+            "name": "Japan",
+            "trans": [
+              "n. 日本（东亚国家名）"
+            ],
+            "usphone": "ʤəˈpæn",
+            "ukphone": "ʤəˈpæn"
+          },
+          {
+            "name": "turkey",
+            "trans": [
+              "n. 土耳其（横跨欧亚两洲的国家）"
+            ],
+            "usphone": "ˈtɜrki",
+            "ukphone": "ˈtɜːki"
+          },
+          {
+            "name": "south",
+            "trans": [
+              "adv.南，南部，南方，向南方"
+            ]
+          },
+          {
+            "name": "Africa",
+            "trans": [
+              "非洲"
+            ],
+            "usphone": "ˈæf.rɪ.kə",
+            "ukphone": "ˈæf.rɪ.kə"
+          },
+          {
+            "name": "Canada",
+            "trans": [
+              "加拿大"
+            ],
+            "usphone": "'kænədə",
+            "ukphone": "'kænədə"
+          },
+          {
+            "name": "Italy",
+            "trans": [
+              "n. 意大利（欧洲南部国家）"
+            ],
+            "usphone": "ˈɪtəli",
+            "ukphone": "ˈɪtəli"
+          },
+          {
+            "name": "France",
+            "trans": [
+              "n.法国"
+            ]
+          },
+          {
+            "name": "amazing",
+            "trans": [
+              "令人惊奇的"
+            ],
+            "usphone": "ə'mezɪŋ",
+            "ukphone": "ə'meɪzɪŋ"
+          },
+          {
+            "name": "awesome",
+            "trans": [
+              "adj.极好的"
+            ],
+            "usphone": "'ɔsəm",
+            "ukphone": "'ɔːsəm"
+          },
+          {
+            "name": "great",
+            "trans": [
+              "好极了"
+            ],
+            "usphone": "ɡreɪt",
+            "ukphone": "ɡreɪt"
+          },
+          {
+            "name": "runner",
+            "trans": [
+              "n. 跑步者；走私者；推销员；送信人"
+            ],
+            "usphone": "ˈrʌnər",
+            "ukphone": "ˈrʌnə"
+          },
+          {
+            "name": "swimmer",
+            "usphone": "'swimə",
+            "ukphone": "'swɪmə",
+            "trans": [
+              "n.游泳运动员"
+            ]
+          },
+          {
+            "name": "tennis",
+            "trans": [
+              "n. 网球（运动）"
+            ],
+            "usphone": "ˈtɛnəs",
+            "ukphone": "ˈtɛnɪs"
+          },
+          {
+            "name": "player",
+            "trans": [
+              "n. 运动员，比赛者；游戏者，做游戏的人；演奏者，表演者；演员；播放器"
+            ],
+            "usphone": "[ˈpleɪər]",
+            "ukphone": "[ˈpleɪə(r)]"
+          }
+        ]
+      }
+    ],
+    "createdAt": 1773337093182,
+    "updatedAt": 1773340856189
+  },
+  {
+    "id": "custom_1773341328039_h7gworf",
+    "name": "ddd",
+    "description": "自定义词典",
+    "language": "en",
+    "languageCategory": "en",
+    "chapters": [
+      {
+        "id": "chapter_1773341322641_yot350l",
+        "name": "章节 1",
+        "words": [
+          {
+            "name": "China",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "the UK",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Mexico",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "the USA",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Spain",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Russia",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Brazil",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Portugal",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Japan",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Turkey",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "South Africa",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Canada",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Italy",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "France",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "amazing",
+            "trans": [
+              "令人惊奇的"
+            ],
+            "usphone": "ə'mezɪŋ",
+            "ukphone": "ə'meɪzɪŋ"
+          },
+          {
+            "name": "awesome",
+            "trans": [
+              "adj.极好的"
+            ],
+            "usphone": "'ɔsəm",
+            "ukphone": "'ɔːsəm"
+          },
+          {
+            "name": "great",
+            "trans": [
+              "好极了"
+            ],
+            "usphone": "ɡreɪt",
+            "ukphone": "ɡreɪt"
+          },
+          {
+            "name": "runner",
+            "trans": [
+              "n. 跑步者；走私者；推销员；送信人"
+            ],
+            "usphone": "ˈrʌnər",
+            "ukphone": "ˈrʌnə"
+          },
+          {
+            "name": "swimmer",
+            "usphone": "'swimə",
+            "ukphone": "'swɪmə",
+            "trans": [
+              "n.游泳运动员"
+            ]
+          },
+          {
+            "name": "tennis player",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          }
+        ]
+      },
+      {
+        "id": "chapter_1773342925912_r5jn9cv",
+        "name": "章节 2",
+        "words": [
+          {
+            "name": "China",
+            "trans": [
+              "中国"
+            ],
+            "usphone": "",
+            "ukphone": "ˈtʃaɪnə"
+          },
+          {
+            "name": "the UK",
+            "trans": [
+              "英国"
+            ],
+            "usphone": "ðə juː keɪ",
+            "ukphone": "ðə ju(ː) keɪ"
+          },
+          {
+            "name": "Mexico",
+            "usphone": "ˈmeksɪkəʊ",
+            "ukphone": "'meksɪkəʊ",
+            "trans": [
+              "* n. 墨西哥"
+            ]
+          },
+          {
+            "name": "the USA",
+            "trans": [
+              "美国"
+            ],
+            "usphone": "ði ˈjuˈɛsˈeɪ",
+            "ukphone": "ðiː ˈjuːˈɛsˈeɪ"
+          },
+          {
+            "name": "Spain",
+            "trans": [
+              "西班牙"
+            ],
+            "usphone": "spen",
+            "ukphone": "spein"
+          },
+          {
+            "name": "Russia",
+            "trans": [
+              "n. 俄罗斯"
+            ],
+            "usphone": "ˈrʌʃə",
+            "ukphone": "ˈrʌʃə"
+          },
+          {
+            "name": "Brazil",
+            "usphone": "brə'zil",
+            "ukphone": "brə'zil",
+            "trans": [
+              "n.巴西"
+            ]
+          },
+          {
+            "name": "Portugal",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Japan",
+            "trans": [
+              "n. 日本（东亚国家名）"
+            ],
+            "usphone": "ʤəˈpæn",
+            "ukphone": "ʤəˈpæn"
+          },
+          {
+            "name": "Turkey",
+            "trans": [
+              "n. 土耳其（横跨欧亚两洲的国家）"
+            ],
+            "usphone": "ˈtɜrki",
+            "ukphone": "ˈtɜːki"
+          },
+          {
+            "name": "South Africa",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Canada",
+            "trans": [
+              "加拿大"
+            ],
+            "usphone": "'kænədə",
+            "ukphone": "'kænədə"
+          },
+          {
+            "name": "Italy",
+            "trans": [
+              "n. 意大利（欧洲南部国家）"
+            ],
+            "usphone": "ˈɪtəli",
+            "ukphone": "ˈɪtəli"
+          },
+          {
+            "name": "France",
+            "trans": [
+              "n.法国"
+            ]
+          },
+          {
+            "name": "amazing",
+            "trans": [
+              "令人惊奇的"
+            ],
+            "usphone": "ə'mezɪŋ",
+            "ukphone": "ə'meɪzɪŋ"
+          },
+          {
+            "name": "awesome",
+            "trans": [
+              "adj.极好的"
+            ],
+            "usphone": "'ɔsəm",
+            "ukphone": "'ɔːsəm"
+          },
+          {
+            "name": "great",
+            "trans": [
+              "好极了"
+            ],
+            "usphone": "ɡreɪt",
+            "ukphone": "ɡreɪt"
+          },
+          {
+            "name": "runner",
+            "trans": [
+              "n. 跑步者；走私者；推销员；送信人"
+            ],
+            "usphone": "ˈrʌnər",
+            "ukphone": "ˈrʌnə"
+          },
+          {
+            "name": "swimmer",
+            "usphone": "'swimə",
+            "ukphone": "'swɪmə",
+            "trans": [
+              "n.游泳运动员"
+            ]
+          },
+          {
+            "name": "tennis player",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          }
+        ]
+      },
+      {
+        "id": "chapter_1773342972469_q77w2ti",
+        "name": "章节 3",
+        "words": [
+          {
+            "name": "China",
+            "trans": [
+              "中国"
+            ],
+            "usphone": "",
+            "ukphone": "ˈtʃaɪnə"
+          },
+          {
+            "name": "the UK",
+            "trans": [
+              "英国"
+            ],
+            "usphone": "ðə juː keɪ",
+            "ukphone": "ðə ju(ː) keɪ"
+          },
+          {
+            "name": "Mexico",
+            "usphone": "ˈmeksɪkəʊ",
+            "ukphone": "'meksɪkəʊ",
+            "trans": [
+              "* n. 墨西哥"
+            ]
+          },
+          {
+            "name": "the USA",
+            "trans": [
+              "美国"
+            ],
+            "usphone": "ði ˈjuˈɛsˈeɪ",
+            "ukphone": "ðiː ˈjuːˈɛsˈeɪ"
+          },
+          {
+            "name": "Spain",
+            "trans": [
+              "西班牙"
+            ],
+            "usphone": "spen",
+            "ukphone": "spein"
+          },
+          {
+            "name": "Russia",
+            "trans": [
+              "n. 俄罗斯"
+            ],
+            "usphone": "ˈrʌʃə",
+            "ukphone": "ˈrʌʃə"
+          },
+          {
+            "name": "Brazil",
+            "usphone": "brə'zil",
+            "ukphone": "brə'zil",
+            "trans": [
+              "n.巴西"
+            ]
+          },
+          {
+            "name": "Portugal",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Japan",
+            "trans": [
+              "n. 日本（东亚国家名）"
+            ],
+            "usphone": "ʤəˈpæn",
+            "ukphone": "ʤəˈpæn"
+          },
+          {
+            "name": "Turkey",
+            "trans": [
+              "n. 土耳其（横跨欧亚两洲的国家）"
+            ],
+            "usphone": "ˈtɜrki",
+            "ukphone": "ˈtɜːki"
+          },
+          {
+            "name": "South Africa",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          },
+          {
+            "name": "Canada",
+            "trans": [
+              "加拿大"
+            ],
+            "usphone": "'kænədə",
+            "ukphone": "'kænədə"
+          },
+          {
+            "name": "Italy",
+            "trans": [
+              "n. 意大利（欧洲南部国家）"
+            ],
+            "usphone": "ˈɪtəli",
+            "ukphone": "ˈɪtəli"
+          },
+          {
+            "name": "France",
+            "trans": [
+              "n.法国"
+            ]
+          },
+          {
+            "name": "amazing",
+            "trans": [
+              "令人惊奇的"
+            ],
+            "usphone": "ə'mezɪŋ",
+            "ukphone": "ə'meɪzɪŋ"
+          },
+          {
+            "name": "awesome",
+            "trans": [
+              "adj.极好的"
+            ],
+            "usphone": "'ɔsəm",
+            "ukphone": "'ɔːsəm"
+          },
+          {
+            "name": "great",
+            "trans": [
+              "好极了"
+            ],
+            "usphone": "ɡreɪt",
+            "ukphone": "ɡreɪt"
+          },
+          {
+            "name": "runner",
+            "trans": [
+              "n. 跑步者；走私者；推销员；送信人"
+            ],
+            "usphone": "ˈrʌnər",
+            "ukphone": "ˈrʌnə"
+          },
+          {
+            "name": "swimmer",
+            "usphone": "'swimə",
+            "ukphone": "'swɪmə",
+            "trans": [
+              "n.游泳运动员"
+            ]
+          },
+          {
+            "name": "tennis player",
+            "trans": [
+              "未找到释义"
+            ],
+            "usphone": "",
+            "ukphone": ""
+          }
+        ]
+      }
+    ],
+    "createdAt": 1773341328039,
+    "updatedAt": 1773343308817
+  }
+]
