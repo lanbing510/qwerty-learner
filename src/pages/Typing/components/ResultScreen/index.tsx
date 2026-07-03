@@ -128,6 +128,16 @@ const ResultScreen = () => {
     dispatch({ type: TypingStateActionType.REPEAT_CHAPTER, shouldShuffle: randomConfig.isOpen })
   }, [isReviewMode, setWordDictationConfig, dispatch, randomConfig.isOpen])
 
+  const wrongRetryButtonHandler = useCallback(async () => {
+    if (isReviewMode) {
+      return
+    }
+
+    // 错题重练默认用默写模式
+    setWordDictationConfig((old) => ({ ...old, isOpen: true, openBy: 'auto' }))
+    dispatch({ type: TypingStateActionType.REPEAT_WRONG_WORDS, shouldShuffle: randomConfig.isOpen })
+  }, [isReviewMode, setWordDictationConfig, dispatch, randomConfig.isOpen])
+
   const dictationButtonHandler = useCallback(async () => {
     if (isReviewMode) {
       return
@@ -310,6 +320,18 @@ const ResultScreen = () => {
                       重复本章节
                     </button>
                   </Tooltip>
+                  {wrongWords.length > 0 && (
+                    <Tooltip content="以默写模式重练本次打错的单词">
+                      <button
+                        className="my-btn-primary h-12 border-2 border-solid border-gray-300 bg-white text-base text-gray-700 dark:border-gray-700 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
+                        type="button"
+                        onClick={wrongRetryButtonHandler}
+                        title="错题重练"
+                      >
+                        错题重练
+                      </button>
+                    </Tooltip>
+                  )}
                 </>
               )}
               {!isLastChapter && !isReviewMode && (

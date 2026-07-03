@@ -9,6 +9,7 @@ import { createContext } from 'react'
 export const initialState: TypingState = {
   chapterData: {
     words: [],
+    originalWords: [],
     index: 0,
     wordCount: 0,
     correctCount: 0,
@@ -50,6 +51,7 @@ export enum TypingStateActionType {
   SKIP_WORD = 'SKIP_WORD',
   SKIP_2_WORD_INDEX = 'SKIP_2_WORD_INDEX',
   REPEAT_CHAPTER = 'REPEAT_CHAPTER',
+  REPEAT_WRONG_WORDS = 'REPEAT_WRONG_WORDS',
   NEXT_CHAPTER = 'NEXT_CHAPTER',
   TOGGLE_WORD_VISIBLE = 'TOGGLE_WORD_VISIBLE',
   TOGGLE_TRANS_VISIBLE = 'TOGGLE_TRANS_VISIBLE',
@@ -79,6 +81,7 @@ export type TypingStateAction =
   | { type: TypingStateActionType.SKIP_WORD }
   | { type: TypingStateActionType.SKIP_2_WORD_INDEX; newIndex: number }
   | { type: TypingStateActionType.REPEAT_CHAPTER; shouldShuffle: boolean }
+  | { type: TypingStateActionType.REPEAT_WRONG_WORDS; shouldShuffle: boolean }
   | { type: TypingStateActionType.NEXT_CHAPTER }
   | { type: TypingStateActionType.TOGGLE_TRANS_VISIBLE }
   | { type: TypingStateActionType.TICK_TIMER; addTime?: number }
@@ -100,6 +103,7 @@ export const typingReducer = (state: TypingState, action: TypingStateAction) => 
       }
       newState.chapterData.index = initialIndex
       newState.chapterData.words = words
+      newState.chapterData.originalWords = action.payload.words
       newState.chapterData.userInputLogs = words.map((_, index) => ({ ...structuredClone(initialUserInputLog), index }))
 
       return newState
@@ -172,9 +176,34 @@ export const typingReducer = (state: TypingState, action: TypingStateAction) => 
     }
     case TypingStateActionType.REPEAT_CHAPTER: {
       const newState = structuredClone(initialState)
-      newState.chapterData.userInputLogs = state.chapterData.words.map((_, index) => ({ ...structuredClone(initialUserInputLog), index }))
+      // 错题重练可能把 words 换成了错题子集，重复/默写本章节始终恢复完整章节
+      const fullWords = state.chapterData.originalWords.length > 0 ? state.chapterData.originalWords : state.chapterData.words
+      newState.chapterData.words = action.shouldShuffle ? shuffle(fullWords) : fullWords
+      newState.chapterData.originalWords = fullWords
+      newState.chapterData.userInputLogs = newState.chapterData.words.map((_, index) => ({
+        ...structuredClone(initialUserInputLog),
+        index,
+      }))
       newState.isTyping = true
-      newState.chapterData.words = action.shouldShuffle ? shuffle(state.chapterData.words) : state.chapterData.words
+      newState.isTransVisible = state.isTransVisible
+      return newState
+    }
+    case TypingStateActionType.REPEAT_WRONG_WORDS: {
+      const wrongWords = state.chapterData.userInputLogs
+        .filter((log) => log.wrongCount > 0)
+        .map((log) => state.chapterData.words[log.index])
+        .filter((word) => word !== undefined)
+      if (wrongWords.length === 0) {
+        return state
+      }
+      const newState = structuredClone(initialState)
+      newState.chapterData.words = action.shouldShuffle ? shuffle(wrongWords) : wrongWords
+      newState.chapterData.originalWords = state.chapterData.originalWords.length > 0 ? state.chapterData.originalWords : state.chapterData.words
+      newState.chapterData.userInputLogs = newState.chapterData.words.map((_, index) => ({
+        ...structuredClone(initialUserInputLog),
+        index,
+      }))
+      newState.isTyping = true
       newState.isTransVisible = state.isTransVisible
       return newState
     }

@@ -4,6 +4,8 @@ import type { LetterMistakes } from '@/utils/db/record'
 export type ChapterData = {
   // warning: 因为有章节内随机的存在，所有记录 index 的场景都应该使用 WordWithIndex.index
   words: WordWithIndex[]
+  // 完整章节词表；错题重练会临时把 words 换成错题子集，默写/重复本章节从这里恢复
+  originalWords: WordWithIndex[]
   // chapter index
   index: number
   // 输入的单词数
