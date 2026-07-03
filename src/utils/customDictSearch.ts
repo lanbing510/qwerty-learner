@@ -79,11 +79,12 @@ export async function batchFindWordInfo(
   wordsText: string,
   onProgress?: (current: number, total: number) => void
 ): Promise<Map<string, Word | null>> {
-  // 解析单词列表
+  // 解析单词列表，只按换行和逗号分隔，短语作为一个整体
+  // 搜索时转换为小写
   const words = wordsText
-    .split(/[\n,，\s]+/)
+    .split(/[\n,，]/)
     .map((w) => w.trim().toLowerCase())
-    .filter((w) => w.length > 0 && /^[a-zA-Z]+$/.test(w))
+    .filter((w) => w.length > 0 && /^[a-zA-Z\s]+$/.test(w))
 
   const results = new Map<string, Word | null>()
   const total = words.length
