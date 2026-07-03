@@ -30,10 +30,55 @@
 <img  src="docs/Screenshot.png"/>
 </div>
 
-
 ## NEW FEATURE
 
-[自定义词典功能](./docs/CUSTOM_DICT.md)
+### 自定义词典功能
+
+支持创建、编辑、导入/导出自定义词典，支持多设备同步！
+
+**详细文档**: [自定义词典功能使用指南](./docs/CUSTOM_DICT.md)
+
+**主要功能**:
+
+- ✅ 创建自定义词典，自动从内置词典查找单词释义和音标
+- ✅ 支持短语（如 "the USA"），保留原始大小写
+- ✅ Excel 格式导入/导出，方便编辑和分享
+- ✅ 服务器同步，多设备/多浏览器共享词典
+- ✅ 章节管理，灵活组织单词
+
+**服务器部署**（可选）:
+
+如需多设备/多人共享自定义词典，可部署后端服务：
+
+```bash
+# 1. 进入服务器目录
+cd server
+
+# 2. 安装依赖
+npm install
+
+# 3. 启动服务（默认端口 3001）
+npm start
+```
+
+**配置前端连接服务器**:
+
+编辑 `src/utils/customDictApi.ts`，设置服务器地址：
+
+```typescript
+export const API_BASE_URL = 'http://你的服务器IP:3001'
+```
+
+**NAS Docker 部署**:
+
+```bash
+docker run -d \
+  --name qwerty-learner-server \
+  -p 3001:3001 \
+  -v /volume1/docker/qwerty-learner-server/data:/app/data \
+  node:18-alpine \
+  sh -c "cd /app && npm install express cors && node server.js"
+```
 
 <div align=center>
 <img  src="docs/custom1.png"/>
@@ -42,7 +87,6 @@
 <div align=center>
 <img  src="docs/custom2.png"/>
 </div>
-
 
 ## 📸 在线访问
 
@@ -96,6 +140,10 @@ GitHub Pages: <https://realkai42.github.io/qwerty-learner/>
 <br />
 
 ## 🛠 功能列表
+
+### 自定义词典
+
+支持创建和管理自己的单词词典，自动从内置词典查找释义和音标。支持 Excel 导入/导出，方便编辑和分享。可选服务器同步，实现多设备/多浏览器共享。
 
 ### 词库
 
@@ -182,6 +230,18 @@ GitHub Pages: <https://realkai42.github.io/qwerty-learner/>
 2. 在命令行中执行 `cd qwerty-learner`，进入项目根目录，执行`yarn install`来下载依赖。
 3. 执行`yarn start`来启动项目，项目默认地址为`http://localhost:5173/`
 4. 在浏览器中打开`http://localhost:5173/`来访问项目。
+
+### 启动后端服务（可选）
+
+如需使用自定义词典的服务器同步功能：
+
+1. 进入 `server` 目录：`cd server`
+2. 安装依赖：`npm install`
+3. 启动服务：`npm start`
+4. 服务默认运行在 `http://localhost:3001`
+5. 修改前端配置：编辑 `src/utils/customDictApi.ts`，设置 `API_BASE_URL = 'http://localhost:3001'`
+
+**数据存储位置**: `server/data/custom_dictionaries.json`
 
 ### 脚本执行
 
