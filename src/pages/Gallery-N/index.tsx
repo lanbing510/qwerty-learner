@@ -129,11 +129,11 @@ export default function GalleryPage() {
   return (
     <Layout>
       <GalleryContext.Provider value={{ state: galleryState, setState: setGalleryState }}>
-        <div className="relative mb-auto mt-auto flex w-full flex-1 flex-col overflow-y-auto pl-20">
-          <IconX className="absolute right-20 top-10 mr-2 h-7 w-7 cursor-pointer text-gray-400" onClick={onBack} />
+        <div className="relative mb-auto mt-auto flex w-full flex-1 flex-col overflow-y-auto px-4 md:pl-20 md:pr-0">
+          <IconX className="absolute right-4 top-10 md:right-20 mr-2 h-7 w-7 cursor-pointer text-gray-400" onClick={onBack} />
           <div className="mt-20 flex w-full flex-1 flex-col items-center justify-center overflow-y-auto">
-            <div className="flex h-full flex-col overflow-y-auto">
-              <div className="flex h-20 w-full items-center justify-between pb-6 pr-20">
+            <div className="flex h-full max-w-full flex-col overflow-y-auto">
+              <div className="flex w-full flex-wrap items-center justify-between gap-3 pb-6 md:pr-20">
                 <LanguageTabSwitcher />
                 <div className="flex items-center gap-3">
                   <Link
