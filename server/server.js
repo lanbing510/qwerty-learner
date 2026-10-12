@@ -5,12 +5,14 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+// 1012 搬瓦工部署: HOST=127.0.0.1(只让 Caddy 访问), QWERTY_CORS=0(前后端同域, 不开跨域)
+const HOST = process.env.HOST || '0.0.0.0';
 
 // 数据文件路径
 const DATA_FILE = path.join(__dirname, 'data', 'custom_dictionaries.json');
 
 // 中间件
-app.use(cors());
+if (process.env.QWERTY_CORS !== '0') app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
 // 确保数据目录存在
@@ -35,7 +37,10 @@ function loadDicts() {
 // 保存词典数据
 function saveDicts(dicts) {
   try {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(dicts, null, 2), 'utf-8');
+    // 先写临时文件再原子改名, 写到一半断电/崩溃也不会把词典写坏
+    const tmp = DATA_FILE + '.tmp';
+    fs.writeFileSync(tmp, JSON.stringify(dicts, null, 2), 'utf-8');
+    fs.renameSync(tmp, DATA_FILE);
     return true;
   } catch (error) {
     console.error('保存词典失败:', error);
@@ -105,7 +110,7 @@ app.delete('/api/custom-dicts/:id', (req, res) => {
 });
 
 // 启动服务器
-app.listen(PORT, () => {
+app.listen(PORT, HOST, () => {
   console.log(`后端服务已启动: http://localhost:${PORT}`);
   console.log(`数据文件: ${DATA_FILE}`);
 });

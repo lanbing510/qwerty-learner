@@ -2,7 +2,8 @@
 
 // 后端服务器地址，设为空字符串则不使用后端（使用本地存储）
 // ⚠️ 请修改为你的 NAS 服务器地址，例如：'http://192.168.1.100:3001'
-export const API_BASE_URL = 'http://192.168.3.49:3001'
+// 1012 迁到搬瓦工(qwerty.broadenyour.world): 前后端同域, 默认用当前站点; 需要时用 VITE_API_BASE_URL 覆盖
+export const API_BASE_URL: string = import.meta.env.VITE_API_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : '')
 
 // 判断是否使用后端服务
 export function useServerApi(): boolean {

@@ -15,7 +15,7 @@ const APP_DIR = path.join(__dirname, '..');
 const DICTS_DIR = path.join(APP_DIR, 'public', 'dicts');
 const DATA_FILE = path.join(__dirname, 'data', 'custom_dictionaries.json');
 const BACKUP_DIR = path.join(__dirname, 'data', 'backups');
-const API = 'http://localhost:3001/api/custom-dicts';
+const API = process.env.QWERTY_API || 'http://localhost:3001/api/custom-dicts';
 const DEFAULT_DICT_ID = 'custom_1773337093182_5ifybj3';
 
 const dryRun = process.argv.includes('--dry-run');
