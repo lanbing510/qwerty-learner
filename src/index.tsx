@@ -20,13 +20,8 @@ const GalleryPage = lazy(() => import('./pages/Gallery-N'))
 const CustomDictPage = lazy(() => import('./pages/CustomDict'))
 const CustomDictEditPage = lazy(() => import('./pages/CustomDict/EditDict'))
 
-if (process.env.NODE_ENV === 'production') {
-  // for prod
-  mixpanel.init('bdc492847e9340eeebd53cc35f321691')
-} else {
-  // for dev
-  mixpanel.init('5474177127e4767124c123b2d7846e2a', { debug: true })
-}
+// 1012 自部署: 不向 Mixpanel 上报(孩子的使用数据不发第三方)。默认退出追踪 + 不写 Cookie, 后面各处 track() 都成空操作
+mixpanel.init('disabled', { opt_out_tracking_by_default: true, disable_persistence: true, ip: false })
 
 function Root() {
   const darkMode = useAtomValue(isOpenDarkModeAtom)
