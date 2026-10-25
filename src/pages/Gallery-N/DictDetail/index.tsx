@@ -111,7 +111,7 @@ export default function DictDetail({ dictionary: dict }: { dictionary: Dictionar
           <TabsContent value={Tab.Chapters} className="h-full ">
             <ScrollArea className="h-[30rem] ">
               <div className="flex w-full flex-wrap gap-3">
-                {range(0, dict.chapterCount, 1).map((index) => (
+                {range(dict.chapterCount - 1, -1, -1).map((index) => (
                   <Chapter
                     key={`${dict.id}-${index}`}
                     index={index}

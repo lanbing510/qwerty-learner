@@ -39,7 +39,7 @@ export const DictChapterButton = () => {
             </Listbox.Button>
             <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
               <Listbox.Options className="listbox-options z-10 w-32">
-                {range(0, chapterCount, 1).map((index) => (
+                {range(chapterCount - 1, -1, -1).map((index) => (
                   <Listbox.Option key={index} value={index}>
                     {({ selected }) => (
                       <div className="group flex cursor-pointer items-center justify-between">
